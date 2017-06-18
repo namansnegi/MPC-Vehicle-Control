@@ -3,9 +3,11 @@
 
 ## Intro
 
-This repository contains my solution to the Udacity SDCND MPC Project. The goal of this project is to navigate a track in a Udacity-provided [simulator](https://github.com/udacity/self-driving-car-sim/releases), which communicates telemetry and track waypoint data via websocket, by sending steering and acceleration commands back to the simulator. The solution must be robust to 100ms latency, as one may encounter in real-world application.
+The goal of this project is to implement a C++ Model Predictive Control to navigate the vehicle around a track in a Udacity-provided simulator. The program uses a simple Global Kinematic Model. Parameters were tuned in order to reach maximal speed.
+The solution must be robust to 100ms latency, as one may encounter in real-world application.
 
-This solution, as the Nanodegree lessons suggest, makes use of the IPOPT and CPPAD libraries to calculate an optimal trajectory and its associated actuation commands in order to minimize error with a third-degree polynomial fit to the given waypoints. The optimization considers only a short duration's worth of waypoints, and produces a trajectory for that duration based upon a model of the vehicle's kinematics and a cost function based mostly on the vehicle's cross-track error (roughly the distance from the track waypoints) and orientation angle error, with other cost factors included to improve performance. 
+MPC(Model Predictive Control) is another important control method in the self-driving car tool box. MPC has the ability to anticipate future events and can take control actions accordingly. PID and LQR controllers do not have this predictive ability.
+
 
 ## Rubric Points
 
