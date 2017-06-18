@@ -9,11 +9,32 @@ This solution, as the Nanodegree lessons suggest, makes use of the IPOPT and CPP
 
 ## Rubric Points
 
-- **The Model**: *Student describes their model in detail. This includes the state, actuators and update equations.*
+- **The Model**: 
+The Model Predictive Controller (MPC) implemented in this project predicts/calulates a trajectory and actuations of a car in the simulator and sends those back to the simulator to drive the car forward. 
 
-The kinematic model includes the vehicle's x and y coordinates, orientation angle (psi), and velocity, as well as the cross-track error and psi error (epsi). Actuator outputs are acceleration and delta (steering angle). The model combines the state and actuations from the previous timestep to calculate the state for the current timestep based on the equations below:
+The kinematic model includes the vehicle's x and y coordinates, orientation angle (psi), and velocity, as well as the cross-track error and psi error (epsi). As discussed in the lessons, the state vector of the vehicle is given by:
 
-![equations](./eqns.png)
+      x - vehicle position on x axis
+      y - vehicle position on y axis
+      psi - yaw angle
+      v - speed of the vehicle
+      cte - cross-track error
+      epsi - orientation error
+      delta - steering angle (actuator)
+      a - acceleration (actuator)
+
+Lf - the distance between the center of mass of the vehicle and the front wheels.
+
+
+Given the state vector, the model state at timestep t+1 is expressed by the following equations:
+
+      x[t+1] = x[t] + v[t] * cos(psi[t]) * dt
+      y[t+1] = y[t] + v[t] * sin(psi[t]) * dt
+      psi[t+1] = psi[t] + v[t] / Lf * delta[t] * dt
+      v[t+1] = v[t] + a[t] * dt
+      cte[t+1] = f(x[t]) - y[t] + v[t] * sin(epsi[t]) * dt
+      epsi[t+1] = psi[t] - psides[t] + v[t] * delta[t] / Lf * dt
+      
 
 - **Timestep Length and Elapsed Duration (N & dt)**: *Student discusses the reasoning behind the chosen N (timestep length) and dt (elapsed duration between timesteps) values. Additionally the student details the previous values tried.*
 
